@@ -1,0 +1,23 @@
+# Ignorar todas las carpetas excepto las especificadas
+*
+
+# Excepciones para incluir lo necesario
+!alacritty/
+!alacritty/**
+# Ignorar todo el contenido de fish excepto config.fish 
+!fish/
+!fish/config.fish
+
+# Excepciones para incluir lo necesario
+!nvim/
+!nvim/**
+
+# Excepciones para incluir lo necesario
+!.tmux-copy.conf
+
+# Excepciones para incluir lo necesario
+!.gitignore
+
+# Ignorar todo el contenido de fish excepto config.fish
+fish/*
+!fish/config.fish
