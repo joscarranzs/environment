@@ -39,7 +39,7 @@ unfocused_hollow = true
 thickness = 0.15
 
 [font]
-size = 13.0
+size = 14.0
 
 [font.normal]
 family = "Iosevka NF Medium"
@@ -52,7 +52,7 @@ multiplier = 3
 [window]
 decorations = "full"
 dynamic_padding = false
-opacity = 0.95
+opacity = 0.80
 
 [window.dimensions]
 columns = 130
