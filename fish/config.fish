@@ -31,3 +31,6 @@ set -x PATH $JAVA_HOME/bin $PATH
 
 # Created by `pipx` on 2024-12-24 20:55:29
 set PATH $PATH /home/jcarranzs/.local/bin
+
+# Added by LM Studio CLI (lms)
+set -gx PATH $PATH /home/jcarranzs/.lmstudio/bin
