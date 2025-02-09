@@ -22,3 +22,6 @@ vim.api.nvim_create_user_command("CleanAndFormat", clean_and_format, {})
 
 -- Vincular la función al mapeo de teclas (líder + s)
 vim.keymap.set("n", "<leader>s", clean_and_format, { noremap = true, silent = true })
+
+-- Comando normal para guardar (leader + w)
+vim.keymap.set("n", "<leader>w", ":write<CR>", { noremap = true, silent = true })
