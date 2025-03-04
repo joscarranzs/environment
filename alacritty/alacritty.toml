@@ -50,9 +50,11 @@ history = 10000
 multiplier = 3
 
 [window]
-decorations = "full"
+title = "Alacritty"
+decorations = "none"
 dynamic_padding = false
-opacity = 0.90
+opacity = 0.85
+startup_mode = "Maximized"
 
 [window.dimensions]
 columns = 130
@@ -61,4 +63,3 @@ lines = 30
 [window.padding]
 x = 10
 y = 10
-
