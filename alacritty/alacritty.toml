@@ -51,7 +51,7 @@ multiplier = 3
 
 [window]
 title = "Alacritty"
-decorations = "none"
+# decorations = "none"
 dynamic_padding = false
 opacity = 0.85
 startup_mode = "Maximized"
