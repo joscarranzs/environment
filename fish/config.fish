@@ -26,7 +26,8 @@ function vfz
     end
 end
 
-set -x JAVA_HOME /home/linuxbrew/.linuxbrew/Cellar/openjdk/23.0.1
+# Remember to always update the JAVA_HOME variable path
+set -x JAVA_HOME /home/linuxbrew/.linuxbrew/Cellar/openjdk/23.0.2
 set -x PATH $JAVA_HOME/bin $PATH
 
 # Created by `pipx` on 2024-12-24 20:55:29
