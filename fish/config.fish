@@ -16,6 +16,7 @@ alias delete="rm -rf"
 alias back="cd .."
 alias tm="tmux"
 alias kill="tmux kill-server"
+alias yt="yt-dlp"
 command -qv nvim && alias vim nvim
 
 # Function to open Vim directly with the FZF interface

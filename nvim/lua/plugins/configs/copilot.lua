@@ -1,6 +1,7 @@
 return {
     {
         "github/copilot.vim",
+        lazy = false, -- Cargar al inicio
         config = function()
             -- Activar Copilot para los lenguajes que usas
             vim.g.copilot_filetypes = {
