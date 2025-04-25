@@ -82,3 +82,53 @@ function maven-project --description "Create a new Maven project"
         return 1
     end
 end
+
+
+# Function to start Docker service
+function initDocker
+    sudo systemctl start docker
+    echo "🐳 Docker service started."
+end
+
+# Function to stop Docker service
+function closeDocker
+    sudo systemctl stop docker
+    echo "🐳 Docker service stopped."
+end
+
+# Function to start SQL Server container
+function initSQLServer
+    sudo docker start sqlserver
+    echo "🗄️ SQL Server container started."
+end
+
+# Function to stop SQL Server container
+function closeSQLServer
+    sudo docker stop sqlserver
+    echo "🛑 SQL Server container stopped."
+end
+
+# Function to connect to SQL Server using sqlcmd
+function sqlServerConnect
+    sqlcmd -S localhost -U sa -P 'Carranz2808'
+end
+
+function nvimDB
+    nvim +DBUI
+end
+
+
+function ytmp3
+    if test (count $argv) -eq 0
+        echo "🚫 Debes ingresar un enlace de YouTube."
+        return 1
+    end
+
+    yt-dlp -f bestaudio --extract-audio --audio-format mp3 --audio-quality 0 $argv[1]
+
+    if test $status -eq 0
+        echo "✅ Descarga y conversión completadas."
+    else
+        echo "❌ Ocurrió un error durante la descarga."
+    end
+end
