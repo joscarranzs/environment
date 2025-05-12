@@ -117,7 +117,7 @@
     git config --global user.email "jcarranzsosa@gmail.com"
     ```
 
-## Fase diez: Configurar las configuraciones base del repositorio de GitHub
+## Fase diez: Copiar las configuraciones bases
 1. Copiar el archivo de configuración de Fish a la carpeta de configuración:
     ```bash
     ~/.config/fish/config.fish
@@ -129,4 +129,8 @@
 3. Iniciar Neovim para instalar los plugins (verificar que están instalados Node.js y GCC):
     ```bash
     nvim
+    ```
+4. Copiar el archivo de configuración de Tmux a la ruta raiz:
+    ```bash
+    ~/.tmux.conf
     ```
