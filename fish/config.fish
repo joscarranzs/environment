@@ -149,3 +149,8 @@ function copilot-explain
     echo "❌ Debes proporcionar --query=\"algo a explicar\""
     return 1
 end
+
+# Function to start a tmux session for development
+function tmuxdev
+    ~/.config/fish/tmux-dev.fish
+end
