@@ -16,7 +16,7 @@
 !.tmux-copy.conf
 
 # Excepciones para incluir lo necesario
-!.tmux-dev-copy.fish
+!tmux-dev-copy.fish
 
 # Excepciones para incluir lo necesario
 !.wezterm.lua
