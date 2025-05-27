@@ -1,34 +1,36 @@
+[colors.primary]
+background = "#0C0401"
+foreground = "#e0def4"
+
+[colors.normal]
+black = "#26233a"
+red = "#eb6f92"
+green = "#31748f"
+yellow = "#f6c177"
+blue = "#9ccfd8"
+magenta = "#c4a7e7"
+cyan = "#ebbcba"
+white = "#e0def4"
+
 [colors.bright]
 black = "#6e6a86"
-blue = "#c4a7e7"
-cyan = "#3e8fb0"
-green = "#9ccfd8"
-magenta = "#ea9a97"
 red = "#eb6f92"
-white = "#e0def4"
+green = "#31748f"
 yellow = "#f6c177"
+blue = "#9ccfd8"
+magenta = "#c4a7e7"
+cyan = "#ebbcba"
+white = "#e0def4"
 
 [colors.cursor]
 cursor = "#e0def4"
-text = "#191724"
-
-[colors.normal]
-black = "#6e6a86"
-blue = "#c4a7e7"
-cyan = "#3e8fb0"
-green = "#9ccfd8"
-magenta = "#ea9a97"
-red = "#eb6f92"
-white = "#e0def4"
-yellow = "#f6c177"
-
-[colors.primary]
-background = "#070707"
-foreground = "#e0def4"
+text = "#232323"
 
 [colors.selection]
 background = "#403d52"
 text = "#e0def4"
+
+
 
 [cursor]
 style = { shape = "Block", blinking = "On" }
@@ -42,8 +44,8 @@ thickness = 0.15
 size = 14.0
 
 [font.normal]
-family = "Iosevka NF Medium"
-style = "Regular"
+family = "Iosevka Nerd Font"
+style = "Medium"
 
 [scrolling]
 history = 10000
@@ -51,15 +53,13 @@ multiplier = 3
 
 [window]
 title = "Alacritty"
-# decorations = "none"
 dynamic_padding = false
-opacity = 1.0
+opacity = 0.95
 startup_mode = "Maximized"
-
-[window.dimensions]
-columns = 130
-lines = 30
 
 [window.padding]
 x = 10
 y = 10
+
+[terminal]
+shell = { program = "C:\\Windows\\System32\\wsl.exe", args = ["~"] }

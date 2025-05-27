@@ -152,5 +152,5 @@ end
 
 # Function to start a tmux session for development
 function tmuxdev
-    ~/.config/fish/tmux-dev.fish
+    ~/tmux-dev.fish
 end
