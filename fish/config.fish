@@ -11,7 +11,8 @@ alias la="lsd -a"
 alias ll="lsd -l"
 alias lla="lsd -l -a"
 alias lg="lazygit"
-alias create="mkdir"
+alias create_folder="mkdir"
+alias create_file="touch"
 alias delete="rm -rf"
 alias back="cd .."
 alias tm="tmux"
@@ -28,7 +29,7 @@ function vfz
 end
 
 # Remember to always update the JAVA_HOME variable path
-set -x JAVA_HOME /home/linuxbrew/.linuxbrew/Cellar/openjdk/23.0.2
+set -x JAVA_HOME /home/linuxbrew/.linuxbrew/Cellar/openjdk/24.0.2
 set -x PATH $JAVA_HOME/bin $PATH
 
 # Created by `pipx` on 2024-12-24 20:55:29
