@@ -1,0 +1,37 @@
+# Ignorar todas las carpetas excepto las especificadas
+*
+
+# Incluir todos los archivos de alacritty
+!alacritty/
+!alacritty/**
+
+# Incluir todos los archivos de kitty
+!kitty/
+!kitty/**
+
+# Ignorar todo el contenido de fish excepto config.fish 
+!fish/
+!fish/config.fish
+
+# Incluir todos los archivos de nvim
+!nvim/
+!nvim/**
+
+# Incluir copia de las configuraciones de tmux
+!.tmux-copy.conf
+
+# Incluir copia de las configuraciones de tmux-dev
+!tmux-dev-copy.fish
+
+# Incluir copia de las configuraciones de wezterm
+!.wezterm.lua
+
+# Incluir el archivo .gitignore
+!.gitignore
+
+# Ignorar todo el contenido de fish excepto config.fish
+fish/*
+!fish/config.fish
+
+# Incluir el archivo README.md
+!README.md
