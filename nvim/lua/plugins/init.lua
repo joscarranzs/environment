@@ -42,4 +42,6 @@ require("lazy").setup({
     require("plugins.configs.translator"),
     -- Plugin para gestionar base de datos
     -- require("plugins.configs.nvim-dadbod"),
+    -- Plugin para visualizar y modificar archivos
+    require("plugins.configs.oil"),
 })

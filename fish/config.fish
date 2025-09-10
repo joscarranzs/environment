@@ -5,7 +5,6 @@ set -gx EDITOR nvim
 
 # Common aliases
 alias cdh="cd ~"
-alias cl="clear"
 alias ls="lsd"
 alias la="lsd -a"
 alias ll="lsd -l"
@@ -18,6 +17,10 @@ alias back="cd .."
 alias tm="tmux"
 alias kill="tmux kill-server"
 alias yt="yt-dlp"
+alias clear='printf "\033c"'
+alias cls='printf "\033c"'
+alias cl='printf "\033c"'
+
 command -qv nvim && alias vim nvim
 
 # Function to open Vim directly with the FZF interface
@@ -29,7 +32,7 @@ function vfz
 end
 
 # Remember to always update the JAVA_HOME variable path
-set -x JAVA_HOME /home/linuxbrew/.linuxbrew/Cellar/openjdk/24.0.2
+set -x JAVA_HOME /home/linuxbrew/.linuxbrew/opt/openjdk@21
 set -x PATH $JAVA_HOME/bin $PATH
 
 # Created by `pipx` on 2024-12-24 20:55:29
