@@ -1,45 +1,43 @@
 return {
-    -- Mason: Instalador de herramientas
     {
         "williamboman/mason.nvim",
         config = function()
             require("mason").setup()
         end,
     },
-
-    -- Mason-LSPconfig: Integración con lspconfig
     {
         "williamboman/mason-lspconfig.nvim",
         dependencies = { "neovim/nvim-lspconfig" },
         config = function()
             require("mason-lspconfig").setup({
                 ensure_installed = {
-                    "lua_ls",    -- Lua
-                    "ts_ls",     -- JavaScript/TypeScript (nuevo nombre)
-                    "clangd",    -- C/C++
-                    "html",      -- HTML
-                    "cssls",     -- CSS
-                    "tailwindcss", -- Tailwind CSS
-                    "jdtls",     -- Java
-                    "astro",     -- Astro
-                    "pyright",   -- Python
-                    "marksman",  -- Markdown
+                    "lua_ls", "ts_ls", "clangd", "html", "cssls",
+                    "tailwindcss", "jdtls", "astro", "pyright", "marksman"
                 },
                 automatic_installation = true,
             })
         end,
     },
 
-    -- Configuración de LSP Servers
     {
         "neovim/nvim-lspconfig",
         config = function()
-            local lspconfig = require("lspconfig")
-            local capabilities = require("cmp_nvim_lsp").default_capabilities()
+            local cmp_nvim_lsp = require("cmp_nvim_lsp")
+            local common_capabilities = cmp_nvim_lsp.default_capabilities()
 
-            -- Servidor Lua
-            lspconfig.lua_ls.setup({
-                capabilities = capabilities,
+            -- Configuración global por defecto
+            vim.lsp.config("*", {
+                capabilities = common_capabilities,
+                root_dir = function(fname)
+                    return vim.fs.dirname(
+                        vim.fs.find({ "package.json", "tsconfig.json", ".git" }, { upward = true, path = fname })[1] or ""
+                    )
+                end,
+            })
+
+            -- Lua
+            vim.lsp.config("lua_ls", {
+                capabilities = common_capabilities,
                 settings = {
                     Lua = {
                         runtime = { version = "LuaJIT" },
@@ -50,45 +48,89 @@ return {
                 },
             })
 
-            -- TypeScript/JavaScript
-            lspconfig.ts_ls.setup({
-                capabilities = capabilities,
-                root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", ".git"),
+            -- TypeScript / JavaScript
+            vim.lsp.config("ts_ls", {
+                capabilities = common_capabilities,
+                root_dir = function(fname)
+                    return vim.fs.dirname(
+                        vim.fs.find(
+                            { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
+                            { upward = true, path = fname }
+                        )[1] or ""
+                    )
+                end,
                 settings = {
-                    TypeScript = {
-                        validate = true,
-                    },
-                    JavaScript = {
-                        validate = true,
-                    },
-                }
+                    typescript = { validate = true },
+                    javascript = { validate = true },
+                },
             })
 
             -- C/C++
-            lspconfig.clangd.setup({ capabilities = capabilities })
+            vim.lsp.config("clangd", {
+                capabilities = common_capabilities,
+                cmd = { "clangd", "--background-index", "--clang-tidy" },
+            })
 
             -- HTML
-            lspconfig.html.setup({ capabilities = capabilities })
+            vim.lsp.config("html", {
+                capabilities = common_capabilities,
+                filetypes = { "html", "htmldjango" },
+            })
 
             -- CSS
-            lspconfig.cssls.setup({ capabilities = capabilities })
+            vim.lsp.config("cssls", {
+                capabilities = common_capabilities,
+                settings = {
+                    css = { validate = true },
+                    less = { validate = true },
+                    scss = { validate = true },
+                },
+            })
 
             -- Tailwind CSS
-            lspconfig.tailwindcss.setup({ capabilities = capabilities })
+            vim.lsp.config("tailwindcss", {
+                capabilities = common_capabilities,
+                root_dir = function(fname)
+                    return vim.fs.dirname(
+                        vim.fs.find(
+                            { "tailwind.config.js", "tailwind.config.cjs", "tailwind.config.ts", "package.json", ".git" },
+                            { upward = true, path = fname }
+                        )[1] or ""
+                    )
+                end,
+            })
 
             -- Java
-            lspconfig.jdtls.setup({ capabilities = capabilities })
+            vim.lsp.config("jdtls", {
+                capabilities = common_capabilities,
+                root_dir = function(fname)
+                    return vim.fs.dirname(
+                        vim.fs.find({ "pom.xml", "gradlew", ".git" }, { upward = true, path = fname })[1] or ""
+                    )
+                end,
+            })
 
             -- Astro
-            lspconfig.astro.setup({
-                capabilities = capabilities,
-                root_dir = lspconfig.util.root_pattern("package.json", ".git"),
+            vim.lsp.config("astro", {
+                capabilities = common_capabilities,
+                root_dir = function(fname)
+                    return vim.fs.dirname(
+                        vim.fs.find({ "package.json", ".git" }, { upward = true, path = fname })[1] or ""
+                    )
+                end,
             })
 
             -- Python
-            lspconfig.pyright.setup({
-                capabilities = capabilities,
-                root_dir = lspconfig.util.root_pattern(".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt"),
+            vim.lsp.config("pyright", {
+                capabilities = common_capabilities,
+                root_dir = function(fname)
+                    return vim.fs.dirname(
+                        vim.fs.find(
+                            { "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", ".git" },
+                            { upward = true, path = fname }
+                        )[1] or ""
+                    )
+                end,
                 settings = {
                     python = {
                         analysis = {
@@ -101,23 +143,33 @@ return {
             })
 
             -- Markdown
-            lspconfig.marksman.setup({
-                capabilities = capabilities,
-                root_dir = lspconfig.util.root_pattern(".git"),
+            vim.lsp.config("marksman", {
+                capabilities = common_capabilities,
+                root_dir = function(fname)
+                    return vim.fs.dirname(
+                        vim.fs.find({ ".git" }, { upward = true, path = fname })[1] or ""
+                    )
+                end,
+            })
+
+            -- Activa los servidores
+            vim.lsp.enable({
+                "lua_ls", "ts_ls", "clangd", "html", "cssls",
+                "tailwindcss", "jdtls", "astro", "pyright", "marksman"
             })
         end,
     },
 
-    -- Autocompletado con nvim-cmp
+    -- Autocompletado y snippets se quedan igual
     {
         "hrsh7th/nvim-cmp",
         dependencies = {
-            "hrsh7th/cmp-nvim-lsp",   -- Soporte LSP
-            "hrsh7th/cmp-buffer",     -- Autocompletado de palabras del buffer
-            "hrsh7th/cmp-path",       -- Autocompletado de rutas
-            "hrsh7th/cmp-cmdline",    -- Autocompletado para comandos
-            "L3MON4D3/LuaSnip",       -- Snippets
-            "saadparwaiz1/cmp_luasnip", -- Integración de LuaSnip
+            "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/cmp-buffer",
+            "hrsh7th/cmp-path",
+            "hrsh7th/cmp-cmdline",
+            "L3MON4D3/LuaSnip",
+            "saadparwaiz1/cmp_luasnip",
         },
         config = function()
             local cmp = require("cmp")
@@ -125,9 +177,7 @@ return {
 
             cmp.setup({
                 snippet = {
-                    expand = function(args)
-                        luasnip.lsp_expand(args.body)
-                    end,
+                    expand = function(args) luasnip.lsp_expand(args.body) end,
                 },
                 mapping = cmp.mapping.preset.insert({
                     ["<C-b>"] = cmp.mapping.scroll_docs(-4),
@@ -162,36 +212,22 @@ return {
                 },
             })
 
-            -- Configuración específica para ciertos tipos de archivos
             cmp.setup.filetype("gitcommit", {
-                sources = cmp.config.sources({
-                    { name = "cmp_git" }, -- Fuente de completado para Git
-                }, {
-                        { name = "buffer" },
-                    }),
+                sources = cmp.config.sources({ { name = "cmp_git" } }, { { name = "buffer" } }),
             })
 
-            -- Configuración para completado en el modo de búsqueda (`/` y `?`)
             cmp.setup.cmdline({ "/", "?" }, {
                 mapping = cmp.mapping.preset.cmdline(),
-                sources = {
-                    { name = "buffer" },
-                },
+                sources = { { name = "buffer" } },
             })
 
-            -- Configuración para completado en el modo de comandos (`:`)
             cmp.setup.cmdline(":", {
                 mapping = cmp.mapping.preset.cmdline(),
-                sources = cmp.config.sources({
-                    { name = "path" },
-                }, {
-                        { name = "cmdline" },
-                    }),
+                sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
             })
         end,
     },
 
-    -- Snippets con LuaSnip
     {
         "L3MON4D3/LuaSnip",
         config = function()
