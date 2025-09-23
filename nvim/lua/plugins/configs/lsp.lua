@@ -1,4 +1,3 @@
--- ~/.config/nvim/lua/plugins/configs/lsp.lua
 return {
     {
         "williamboman/mason.nvim",
@@ -26,13 +25,16 @@ return {
             local cmp_nvim_lsp = require("cmp_nvim_lsp")
             local common_capabilities = cmp_nvim_lsp.default_capabilities()
 
-            -- Helper para root_dir
+            -- Helper seguro para root_dir
             local function get_root(patterns, fname)
+                if type(fname) ~= "string" or fname == "" then
+                    return vim.loop.cwd() -- fallback seguro
+                end
                 local root_files = vim.fs.find(patterns, { upward = true, path = fname })
-                if root_files[1] then
+                if root_files and root_files[1] and type(root_files[1]) == "string" then
                     return vim.fs.dirname(root_files[1])
                 end
-                return vim.fs.dirname(fname) -- fallback
+                return vim.fs.dirname(fname)
             end
 
             -- Configuración global
