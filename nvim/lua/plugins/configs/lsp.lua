@@ -1,3 +1,4 @@
+-- ~/.config/nvim/lua/plugins/configs/lsp.lua
 return {
     {
         "williamboman/mason.nvim",
@@ -25,14 +26,18 @@ return {
             local cmp_nvim_lsp = require("cmp_nvim_lsp")
             local common_capabilities = cmp_nvim_lsp.default_capabilities()
 
-            -- Configuración global por defecto
+            -- Helper para root_dir
+            local function get_root(patterns, fname)
+                local root_files = vim.fs.find(patterns, { upward = true, path = fname })
+                if root_files[1] then
+                    return vim.fs.dirname(root_files[1])
+                end
+                return vim.fs.dirname(fname) -- fallback
+            end
+
+            -- Configuración global
             vim.lsp.config("*", {
                 capabilities = common_capabilities,
-                root_dir = function(fname)
-                    return vim.fs.dirname(
-                        vim.fs.find({ "package.json", "tsconfig.json", ".git" }, { upward = true, path = fname })[1] or ""
-                    )
-                end,
             })
 
             -- Lua
@@ -52,12 +57,7 @@ return {
             vim.lsp.config("ts_ls", {
                 capabilities = common_capabilities,
                 root_dir = function(fname)
-                    return vim.fs.dirname(
-                        vim.fs.find(
-                            { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
-                            { upward = true, path = fname }
-                        )[1] or ""
-                    )
+                    return get_root({ "tsconfig.json", "jsconfig.json", "package.json", ".git" }, fname)
                 end,
                 settings = {
                     typescript = { validate = true },
@@ -91,11 +91,9 @@ return {
             vim.lsp.config("tailwindcss", {
                 capabilities = common_capabilities,
                 root_dir = function(fname)
-                    return vim.fs.dirname(
-                        vim.fs.find(
-                            { "tailwind.config.js", "tailwind.config.cjs", "tailwind.config.ts", "package.json", ".git" },
-                            { upward = true, path = fname }
-                        )[1] or ""
+                    return get_root(
+                        { "tailwind.config.js", "tailwind.config.cjs", "tailwind.config.ts", "package.json", ".git" },
+                        fname
                     )
                 end,
             })
@@ -104,9 +102,7 @@ return {
             vim.lsp.config("jdtls", {
                 capabilities = common_capabilities,
                 root_dir = function(fname)
-                    return vim.fs.dirname(
-                        vim.fs.find({ "pom.xml", "gradlew", ".git" }, { upward = true, path = fname })[1] or ""
-                    )
+                    return get_root({ "pom.xml", "gradlew", ".git" }, fname)
                 end,
             })
 
@@ -114,9 +110,7 @@ return {
             vim.lsp.config("astro", {
                 capabilities = common_capabilities,
                 root_dir = function(fname)
-                    return vim.fs.dirname(
-                        vim.fs.find({ "package.json", ".git" }, { upward = true, path = fname })[1] or ""
-                    )
+                    return get_root({ "package.json", ".git" }, fname)
                 end,
             })
 
@@ -124,12 +118,7 @@ return {
             vim.lsp.config("pyright", {
                 capabilities = common_capabilities,
                 root_dir = function(fname)
-                    return vim.fs.dirname(
-                        vim.fs.find(
-                            { "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", ".git" },
-                            { upward = true, path = fname }
-                        )[1] or ""
-                    )
+                    return get_root({ "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", ".git" }, fname)
                 end,
                 settings = {
                     python = {
@@ -146,9 +135,7 @@ return {
             vim.lsp.config("marksman", {
                 capabilities = common_capabilities,
                 root_dir = function(fname)
-                    return vim.fs.dirname(
-                        vim.fs.find({ ".git" }, { upward = true, path = fname })[1] or ""
-                    )
+                    return get_root({ ".git" }, fname)
                 end,
             })
 
@@ -160,7 +147,7 @@ return {
         end,
     },
 
-    -- Autocompletado y snippets se quedan igual
+    -- CMP
     {
         "hrsh7th/nvim-cmp",
         dependencies = {
@@ -228,6 +215,7 @@ return {
         end,
     },
 
+    -- Snippets
     {
         "L3MON4D3/LuaSnip",
         config = function()
