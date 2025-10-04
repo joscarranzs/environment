@@ -141,18 +141,18 @@ end
 set PATH $PATH /home/jcarranz/.local/bin
 
 # Function to explain a query using GitHub Copilot
-function copilot-explain
-    for arg in $argv
-        if string match --quiet -- "--query=*" $arg
-            set query (string replace -- "--query=" "" $arg)
-            gh copilot explain "$query"
-            return
-        end
-    end
-
-    echo "❌ Debes proporcionar --query=\"algo a explicar\""
-    return 1
-end
+# function copilot-explain
+#     for arg in $argv
+#         if string match --quiet -- "--query=*" $arg
+#             set query (string replace -- "--query=" "" $arg)
+#             gh copilot explain "$query"
+#             return
+#         end
+#     end
+#
+#     echo "❌ Debes proporcionar --query=\"algo a explicar\""
+#     return 1
+# end
 
 # Function to start a tmux session for development
 function tmuxdev
